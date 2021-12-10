@@ -1,16 +1,12 @@
 from datetime import datetime
 
-from django.http import HttpResponse
+from django.http import JsonResponse
+
+import requests
 
 
 def index(request):
-    now = datetime.now()
-    html = f'''
-    <html>
-        <body>
-            <h1>Hello from Vercel!</h1>
-            <p>The current time is { now }.</p>
-        </body>
-    </html>
-    '''
-    return HttpResponse(html)
+    
+    response = requests.get("https://www.dextools.io/chain-bsc/api/pancakeswap/poolx?pairSelected=0x07ddae60a99421eb948ae5f299117f8f8fe86a66")
+   
+    return JsonResponse(response.json())
