@@ -6,6 +6,8 @@ import requests
 
 import random
 
+from datetime import datetime
+
 user_agent_list = [
     'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_5) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.1.1 Safari/605.1.15',
     'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:77.0) Gecko/20100101 Firefox/77.0',
@@ -29,11 +31,18 @@ def index(request):
     return JsonResponse(response.json())
 
 def price(request):
-    
-    from datetime import datetime
-    
+        
     timestamp = str(int(datetime.now().timestamp()))
     
     response = requests.get("https://www.dextools.io/chain-bsc/api/pancakeswap/1/pairexplorer?v=1.22.8&pair=0x07ddae60a99421eb948ae5f299117f8f8fe86a66&ts=" + timestamp, headers=headers)
+   
+    return JsonResponse(response.json())
+
+
+def transactions(request):
+        
+    timestamp = str(int(datetime.now().timestamp()))
+    
+    response = requests.get("https://www.dextools.io/chain-bsc/api/pancakeswap/history/candles?sym=usd&span=month&pair=0x07ddae60a99421eb948ae5f299117f8f8fe86a66&ts=1638144000000&v=" + timestamp + "&res=15m", headers=headers)
    
     return JsonResponse(response.json())
